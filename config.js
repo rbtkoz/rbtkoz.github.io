@@ -10,7 +10,9 @@ config = {
     // When running Ghost in the wild, use the production environment
     // Configure your URL and mail settings here
     production: {
+
         url: 'http://my-ghost-blog.com',
+        fileStorage: false,
         mail: {},
         database: {
             client: 'sqlite3',
@@ -20,11 +22,12 @@ config = {
             debug: false
         },
 
+
         server: {
             // Host to be passed to node's `net.Server#listen()`
-            host: '127.0.0.1',
+            host: '0.0.0.0',
             // Port to be passed to node's `net.Server#listen()`, for iisnode set this to `process.env.PORT`
-            port: '2368'
+            port: process.env.PORT
         }
     },
 
@@ -50,11 +53,11 @@ config = {
         // ```
 
         database: {
-            client: 'sqlite3',
-            connection: {
-                filename: path.join(__dirname, '/content/data/ghost-dev.db')
-            },
-            debug: false
+          host: process.env.POSTGRES_HOST,
+          user: process.env.POSTGRES_USER,
+          password: process.env.POSTGRES_PASSWORD,
+          database: process.env.POSTGRES_DATABASE,
+          port: '5432'
         },
         server: {
             // Host to be passed to node's `net.Server#listen()`
